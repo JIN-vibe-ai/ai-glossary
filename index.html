@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI・開発用語 検索ツール｜全320語をその場で検索 - ジン</title>
+<meta name="description" content="AIとプログラミングの用語を、打つだけでその場で解説。全320語・ジャンル別の無料ツール。by ジン @jin_vibe_ai">
+
+<!-- ===== OGP（リンクプレビュー）／要差し替え：og:image と twitter:image のURL ===== -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI・開発用語 検索ツール｜全320語をその場で検索">
+<meta property="og:description" content="AIとプログラミングの用語を、打つだけでその場で解説。全320語・ジャンル別の無料ツール。by ジン @jin_vibe_ai">
+<meta property="og:image" content="https://jin-vibe-ai.github.io/ai-glossary/ai-glossary-ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI・開発用語 検索ツール｜全320語をその場で検索">
+<meta name="twitter:description" content="AIとプログラミングの用語を、打つだけでその場で解説。全320語・ジャンル別の無料ツール。">
+<meta name="twitter:image" content="https://jin-vibe-ai.github.io/ai-glossary/ai-glossary-ogp.png">
+
+<!-- favicon（虫めがね） -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232E2D8F'/%3E%3Ccircle cx='14' cy='14' r='6' fill='none' stroke='%23F2F1ED' stroke-width='2.4'/%3E%3Cline x1='18.5' y1='18.5' x2='24' y2='24' stroke='%23F2F1ED' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F1ED;          /* 温かみのあるグレージュ */
+    --surface:#FBFAF8;     /* わずかな浮き（CTA等） */
+    --ink:#1A1813;         /* 温かいニアブラック */
+    --ink-soft:#3C392F;
+    --muted:#73706A;
+    --line:#E2DFD6;        /* ヘアライン */
+    --accent:#2E2D8F;      /* 深いインクインディゴ */
+    --accent-soft:#E8E7F2;
+    --mark-bg:#F0DA96;     /* シャンパンゴールド */
+    --mark-ink:#4A3A12;
+    --line-green:#06C755;
+    --line-green-d:#05a948;
+    --jp:'Noto Sans JP',-apple-system,'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',sans-serif;
+    --mono:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--jp);line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px 72px;}
+
+  /* ---- header ---- */
+  header{padding:52px 0 22px;}
+  .kicker{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin:0 0 16px;}
+  h1{font-size:31px;font-weight:700;letter-spacing:-.01em;margin:0 0 12px;line-height:1.22;}
+  .sub{font-size:14px;color:var(--muted);margin:0 0 22px;max-width:30em;line-height:1.75;}
+  .byline{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .byline .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);}
+  .byline .who{font-family:var(--mono);font-size:12px;color:var(--ink);letter-spacing:.02em;}
+  .byline .handle{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.02em;}
+  .share-row{display:flex;gap:8px;margin-left:auto;}
+  .sbtn{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 13px;cursor:pointer;transition:all .15s ease;}
+  .sbtn:hover{border-color:var(--accent);color:var(--accent);}
+  .sbtn svg{width:13px;height:13px;}
+
+  /* ---- sticky controls ---- */
+  .controls{position:sticky;top:0;z-index:20;background:var(--bg);padding:16px 0 14px;margin:0 -22px;padding-left:22px;padding-right:22px;border-bottom:1px solid var(--line);}
+  .searchbox{position:relative;}
+  .searchbox input{width:100%;font-family:var(--jp);font-size:16px;color:var(--ink);background:#FCFBF9;border:1px solid var(--line);border-radius:11px;padding:15px 46px 15px 46px;outline:none;transition:border-color .18s ease, box-shadow .18s ease;}
+  .searchbox input::placeholder{color:#A6A299;}
+  .searchbox input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,45,143,.11);}
+  .searchbox .ico{position:absolute;left:17px;top:50%;transform:translateY(-50%);width:17px;height:17px;pointer-events:none;color:var(--muted);}
+  .clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:28px;height:28px;border:none;background:transparent;color:var(--muted);font-size:19px;cursor:pointer;border-radius:50%;display:none;align-items:center;justify-content:center;line-height:1;}
+  .clear:hover{background:var(--line);color:var(--ink);}
+  .clear.show{display:flex;}
+  .meta{display:flex;align-items:center;margin-top:13px;}
+  .count{font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--muted);white-space:nowrap;}
+  .count b{color:var(--accent);font-weight:600;}
+  .chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;margin-top:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;white-space:nowrap;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:6px 14px;transition:all .15s ease;}
+  .chip:hover{border-color:var(--accent);color:var(--accent);}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:var(--bg);}
+
+  /* ---- results (hairline list) ---- */
+  .list{margin-top:18px;border-top:1px solid var(--line);}
+  .entry{padding:19px 2px;border-bottom:1px solid var(--line);transition:background .15s ease;}
+  .entry:hover{background:rgba(46,45,143,.025);}
+  .entry-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px 11px;margin-bottom:5px;}
+  .term{font-size:17px;font-weight:700;letter-spacing:.005em;color:var(--ink);transition:color .15s ease;}
+  .entry:hover .term{color:var(--accent);}
+  .en{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.01em;}
+  .cat{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-left:auto;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .cat::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.65;}
+  .def{font-size:14px;color:var(--ink-soft);margin:0;line-height:1.78;}
+  mark{background:var(--mark-bg);color:var(--mark-ink);border-radius:2px;padding:0 2px;font-weight:500;}
+
+  .empty{text-align:center;padding:60px 20px;color:var(--muted);}
+  .empty .big{font-size:15px;color:var(--ink);margin-bottom:6px;}
+  .empty .q{color:var(--accent);font-weight:700;}
+
+  /* ---- LINE CTA ---- */
+  .cta{margin-top:38px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:34px 28px;text-align:center;position:relative;overflow:hidden;}
+  .cta::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--accent);}
+  .cta .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--line-green-d);text-transform:uppercase;margin:0 0 12px;}
+  .cta h2{font-size:20px;font-weight:700;letter-spacing:-.005em;margin:0 0 10px;line-height:1.45;}
+  .cta p{font-size:13.5px;color:var(--muted);margin:0 auto 24px;max-width:33em;line-height:1.8;}
+  .line-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--line-green);color:#fff;font-family:var(--jp);font-weight:700;font-size:15.5px;text-decoration:none;padding:14px 32px;border-radius:12px;box-shadow:0 2px 10px rgba(6,199,85,.22);transition:transform .15s ease, box-shadow .15s ease, background .15s ease;}
+  .line-btn:hover{background:var(--line-green-d);transform:translateY(-1px);box-shadow:0 5px 16px rgba(6,199,85,.28);}
+  .line-btn svg{width:19px;height:19px;}
+  .cta .note{font-family:var(--mono);font-size:10px;letter-spacing:.02em;color:var(--muted);margin:16px 0 0;}
+
+  footer{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--muted);line-height:2;}
+  footer .fh{color:var(--accent);}
+
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);font-size:12.5px;letter-spacing:.02em;padding:10px 20px;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .22s ease, transform .22s ease;z-index:50;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width:520px){
+    .wrap{padding:0 18px 64px;}
+    header{padding:42px 0 18px;}
+    h1{font-size:25px;}
+    .controls{margin:0 -18px;padding-left:18px;padding-right:18px;}
+    .cat{margin-left:0;}
+    .share-row{margin-left:0;width:100%;}
+    .cta{padding:30px 20px;}.cta h2{font-size:18px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">AI &amp; Dev Glossary</p>
+    <h1>AI・開発用語 検索ツール</h1>
+    <p class="sub">AIとプログラミングの用語を、打つだけでその場で解説。全320語・ジャンル別。</p>
+    <div class="byline">
+      <span class="dot"></span>
+      <span class="who" id="whoName">by ジン</span>
+      <span class="handle" id="whoHandle">@jin_vibe_ai</span>
+      <div class="share-row">
+        <button class="sbtn" id="shareBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"></line></svg>シェア</button>
+        <button class="sbtn" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>リンク</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="searchbox">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="q" type="text" placeholder="例：トークン、Git、非同期処理、JOIN…" autocomplete="off" aria-label="用語を検索">
+      <button class="clear" id="clear" aria-label="検索をクリア">&times;</button>
+    </div>
+    <div class="meta"><div class="count" id="count"></div></div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="list" id="list" aria-live="polite"></div>
+
+  <section class="cta">
+    <p class="eyebrow">LINE限定・無料</p>
+    <h2>AIの使いこなしネタ、LINEで配信中</h2>
+    <p>新しいツールやプロンプトの実例を、ジンがLINEでこっそり共有。<br>登録は1タップ、いつでも解除OKです。</p>
+    <a class="line-btn" id="lineBtn" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 5.7 2 10.2c0 4 3.6 7.4 8.4 8 .3.07.78.22.9.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1 .9.55s5.9-3.48 8.05-5.96C21.5 13.4 22 11.9 22 10.2 22 5.7 17.5 2 12 2z"/></svg>
+      LINEで受け取る
+    </a>
+    <p class="note">※ボタンのリンク先は、HTML内のLINE URLに差し替えてください</p>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   設定：ここだけ書き換えればOK
+   ========================================================= */
+const CONFIG = {
+  name:   "ジン",
+  handle: "jin_vibe_ai",
+  lineUrl:"https://lin.ee/XXXXXXX",   // ←【要差し替え】あなたのLINE（公式/オープンチャット）URL
+  shareText:"AIとプログラミングの用語をその場で検索できる無料ツール。全320語、解説つき。"
+};
+
+const DATA = [{"t": "AI（人工知能）", "e": "Artificial Intelligence", "c": "基礎", "d": "人間の知的作業（判断・予測・生成など）をコンピュータに行わせる技術の総称。"}, {"t": "機械学習", "e": "Machine Learning / ML", "c": "基礎", "d": "大量のデータからパターンを自動で学び、予測や分類ができるようになる仕組み。"}, {"t": "ディープラーニング（深層学習）", "e": "Deep Learning", "c": "基礎", "d": "多層のニューラルネットワークを使う機械学習。画像認識や文章生成の精度を一気に高めた。"}, {"t": "ニューラルネットワーク", "e": "Neural Network", "c": "基礎", "d": "脳の神経細胞のつながりを模した計算モデル。ディープラーニングの土台。"}, {"t": "アルゴリズム", "e": "Algorithm", "c": "基礎", "d": "問題を解くための手順やルール。AIがどう計算・判断するかの段取り。"}, {"t": "学習データ（訓練データ）", "e": "Training Data", "c": "基礎", "d": "AIに学ばせるために与える大量のサンプルデータ。質と量が性能を左右する。"}, {"t": "パラメータ", "e": "Parameter", "c": "基礎", "d": "モデルが学習で調整する「つまみ」のような数値。多いほど表現力が高い。"}, {"t": "モデル", "e": "Model", "c": "基礎", "d": "学習を終えてタスクをこなせる状態になったAI本体。"}, {"t": "教師あり学習", "e": "Supervised Learning", "c": "基礎", "d": "正解（ラベル）付きのデータで学ばせる方法。分類や予測に使う。"}, {"t": "教師なし学習", "e": "Unsupervised Learning", "c": "基礎", "d": "正解なしのデータから、AI自身に構造やグループを見つけさせる方法。"}, {"t": "強化学習", "e": "Reinforcement Learning", "c": "基礎", "d": "試行錯誤と報酬を通じて、良い行動を学ばせる方法。"}, {"t": "過学習（オーバーフィッティング）", "e": "Overfitting", "c": "基礎", "d": "学習データに過剰に適応し、新しいデータにうまく対応できなくなる状態。"}, {"t": "汎化", "e": "Generalization", "c": "基礎", "d": "学習していない未知のデータにも、うまく対応できる能力。"}, {"t": "特徴量", "e": "Feature", "c": "基礎", "d": "データの中で、予測の手がかりになる要素・項目。"}, {"t": "ラベル", "e": "Label", "c": "基礎", "d": "学習データに付けられた正解の情報。「これは猫」などのタグ。"}, {"t": "データセット", "e": "Dataset", "c": "基礎", "d": "学習や評価に使うためにまとめられたデータの集まり。"}, {"t": "分類", "e": "Classification", "c": "基礎", "d": "データを、あらかじめ決めたカテゴリに振り分けるタスク。"}, {"t": "回帰", "e": "Regression", "c": "基礎", "d": "売上や価格などの数値を予測するタスク。"}, {"t": "クラスタリング", "e": "Clustering", "c": "基礎", "d": "似たものどうしを自動でグループ分けする手法。"}, {"t": "重み（ウェイト）", "e": "Weight", "c": "基礎", "d": "ネットワーク内で各情報の重要度を表す数値。学習で調整される。"}, {"t": "生成AI", "e": "Generative AI", "c": "生成AI・LLM", "d": "文章・画像・音声・動画などを新しく作り出すタイプのAI。"}, {"t": "LLM（大規模言語モデル）", "e": "Large Language Model", "c": "生成AI・LLM", "d": "膨大な文章を学習し、自然な文章を理解・生成できる巨大な言語モデル。"}, {"t": "GPT", "e": "Generative Pre-trained Transformer", "c": "生成AI・LLM", "d": "OpenAIが開発した代表的なLLMシリーズ。"}, {"t": "Transformer", "e": "Transformer", "c": "生成AI・LLM", "d": "今の生成AIの土台になっている仕組み。文章のどこが重要かを捉えるのが得意。"}, {"t": "トークン", "e": "Token", "c": "生成AI・LLM", "d": "AIが文章を処理する最小単位。料金や処理量の基準にもなる。"}, {"t": "コンテキストウィンドウ", "e": "Context Window", "c": "生成AI・LLM", "d": "AIが一度に読み込んで覚えていられる文章量の上限。"}, {"t": "推論（インファレンス）", "e": "Inference", "c": "生成AI・LLM", "d": "学習済みモデルが実際に答えを出す処理。「使っている瞬間」の動作。"}, {"t": "マルチモーダル", "e": "Multimodal", "c": "生成AI・LLM", "d": "テキスト・画像・音声など、複数種類の情報をまとめて扱えること。"}, {"t": "事前学習", "e": "Pre-training", "c": "生成AI・LLM", "d": "大量データで基礎能力を仕込む、最初の学習段階。"}, {"t": "ファインチューニング", "e": "Fine-tuning", "c": "生成AI・LLM", "d": "学習済みモデルを、特定の用途に合わせて追加調整すること。"}, {"t": "量子化", "e": "Quantization", "c": "生成AI・LLM", "d": "モデルを軽くして動かしやすくする圧縮技術。高速・省メモリ化。"}, {"t": "Attention（注意機構）", "e": "Attention", "c": "生成AI・LLM", "d": "文章の中で「どこに注目すべきか」を重みづけする仕組み。Transformerの核。"}, {"t": "自己注意", "e": "Self-Attention", "c": "生成AI・LLM", "d": "文中の単語どうしの関係を計算し、文脈を理解する仕組み。"}, {"t": "基盤モデル", "e": "Foundation Model", "c": "生成AI・LLM", "d": "大量データで汎用的に学習し、様々な用途に応用できる土台のモデル。"}, {"t": "SLM（小規模言語モデル）", "e": "Small Language Model", "c": "生成AI・LLM", "d": "LLMより軽量で、スマホや端末上でも動かしやすい小型モデル。"}, {"t": "蒸留", "e": "Distillation", "c": "生成AI・LLM", "d": "大きなモデルの知識を、小さなモデルに移して軽量化する技術。"}, {"t": "MoE", "e": "Mixture of Experts", "c": "生成AI・LLM", "d": "複数の専門家モデルを使い分け、必要な部分だけ動かして効率化する構造。"}, {"t": "創発", "e": "Emergence", "c": "生成AI・LLM", "d": "モデルが大きくなると、突然新しい能力が現れる現象。"}, {"t": "スケーリング則", "e": "Scaling Laws", "c": "生成AI・LLM", "d": "データ・計算量・パラメータを増やすほど性能が上がる、という経験則。"}, {"t": "コンテキスト", "e": "Context", "c": "生成AI・LLM", "d": "AIが答えを出すときに参照する、前後のやり取りや与えた情報。"}, {"t": "プロンプト", "e": "Prompt", "c": "プロンプト", "d": "AIへの指示文・入力。何をどう答えてほしいかを伝える命令。"}, {"t": "プロンプトエンジニアリング", "e": "Prompt Engineering", "c": "プロンプト", "d": "狙った出力を引き出すために、指示の書き方を設計する技術。"}, {"t": "システムプロンプト", "e": "System Prompt", "c": "プロンプト", "d": "AIの役割・口調・ルールをあらかじめ設定する、裏側の指示文。"}, {"t": "Zero-shot", "e": "Zero-shot", "c": "プロンプト", "d": "例を見せず、指示だけでタスクをやらせること。"}, {"t": "Few-shot", "e": "Few-shot", "c": "プロンプト", "d": "お手本の例をいくつか見せてから、本番をやらせること。"}, {"t": "Chain of Thought", "e": "CoT", "c": "プロンプト", "d": "順を追って考えさせ、複雑な問題の正解率を上げる手法。"}, {"t": "Temperature（温度）", "e": "Temperature", "c": "プロンプト", "d": "出力のランダムさ・自由度を調整する設定。低いと堅実、高いと創造的。"}, {"t": "Top-p", "e": "Nucleus Sampling", "c": "プロンプト", "d": "候補となる単語をどこまで使うかを確率で絞る設定。出力の多様性を調整。"}, {"t": "ハルシネーション（幻覚）", "e": "Hallucination", "c": "プロンプト", "d": "もっともらしい嘘・誤情報を、AIが自信たっぷりに作ってしまう現象。"}, {"t": "RAG（検索拡張生成）", "e": "Retrieval-Augmented Generation", "c": "プロンプト", "d": "外部資料を検索させ、その情報をもとに答えさせる仕組み。"}, {"t": "AIエージェント", "e": "AI Agent", "c": "プロンプト", "d": "自分で手順を考え、ツールを使ってタスクを自律的にこなすAI。"}, {"t": "API", "e": "Application Programming Interface", "c": "プロンプト", "d": "外部のアプリからAIを呼び出して使うための接続口。"}, {"t": "ロール設定", "e": "Role", "c": "プロンプト", "d": "「あなたは編集者です」のように、AIに役割を与える指示。"}, {"t": "プロンプトインジェクション", "e": "Prompt Injection", "c": "プロンプト", "d": "悪意ある指示を紛れ込ませ、AIを誤動作させる攻撃手法。"}, {"t": "ガードレール", "e": "Guardrails", "c": "プロンプト", "d": "AIが不適切な出力をしないように設ける制限・ルール。"}, {"t": "グラウンディング", "e": "Grounding", "c": "プロンプト", "d": "AIの回答を、信頼できる事実やデータに結びつけること。"}, {"t": "ReAct", "e": "Reasoning + Acting", "c": "プロンプト", "d": "推論と行動を交互に行い、ツールを使いながら答えを導く手法。"}, {"t": "ネガティブプロンプト", "e": "Negative Prompt", "c": "プロンプト", "d": "「これは出さないで」と、避けたい要素を指定する指示。主に画像生成。"}, {"t": "ストリーミング", "e": "Streaming", "c": "プロンプト", "d": "回答を全部待たず、生成されたそばから少しずつ表示する方式。"}, {"t": "メタプロンプト", "e": "Meta Prompt", "c": "プロンプト", "d": "プロンプト自体を、AIに作らせたり改善させたりするための指示。"}, {"t": "拡散モデル", "e": "Diffusion Model", "c": "画像・音声・動画", "d": "ノイズから少しずつ画像を作り上げる仕組み。画像生成の主流方式。"}, {"t": "Stable Diffusion", "e": "Stable Diffusion", "c": "画像・音声・動画", "d": "オープンに使える、代表的な画像生成AI。"}, {"t": "Midjourney", "e": "Midjourney", "c": "画像・音声・動画", "d": "高品質な画像生成で人気のサービス。"}, {"t": "DALL-E", "e": "DALL-E", "c": "画像・音声・動画", "d": "OpenAIの画像生成AI。文章から画像を作る。"}, {"t": "Text-to-Image", "e": "t2i", "c": "画像・音声・動画", "d": "文章を入力すると画像を生成する技術。"}, {"t": "LoRA", "e": "Low-Rank Adaptation", "c": "画像・音声・動画", "d": "少ないデータで、画風やキャラを追加学習させる軽量な手法。"}, {"t": "ControlNet", "e": "ControlNet", "c": "画像・音声・動画", "d": "構図やポーズを指定して、画像生成をコントロールする技術。"}, {"t": "アップスケーリング", "e": "Upscaling", "c": "画像・音声・動画", "d": "低解像度の画像を、高解像度にきれいに引き伸ばす技術。"}, {"t": "インペインティング", "e": "Inpainting", "c": "画像・音声・動画", "d": "画像の一部だけを選んで、描き直す・修正する技術。"}, {"t": "シード", "e": "Seed", "c": "画像・音声・動画", "d": "生成結果を決める乱数の種。同じ値なら同じ画像を再現できる。"}, {"t": "音声合成（TTS）", "e": "Text-to-Speech", "c": "画像・音声・動画", "d": "文章を、自然な音声に読み上げる技術。"}, {"t": "音声認識", "e": "Speech-to-Text / ASR", "c": "画像・音声・動画", "d": "話した音声を、文字に書き起こす技術。"}, {"t": "動画生成AI", "e": "Video Generation", "c": "画像・音声・動画", "d": "文章や画像から、動画を作り出すAI。"}, {"t": "画風（スタイル）", "e": "Style", "c": "画像・音声・動画", "d": "生成画像の雰囲気やタッチ。写実・アニメ・水彩などを指定できる。"}, {"t": "埋め込み（Embedding）", "e": "Embedding", "c": "データ・技術", "d": "文章や単語を、意味の近さを保った数値ベクトルに変換すること。"}, {"t": "ベクトルデータベース", "e": "Vector Database", "c": "データ・技術", "d": "数値化した情報を保存し、意味の近いものを高速に探せるDB。RAGの相棒。"}, {"t": "トークナイザー", "e": "Tokenizer", "c": "データ・技術", "d": "文章をトークンに分割するプログラム。"}, {"t": "GPU", "e": "Graphics Processing Unit", "c": "データ・技術", "d": "大量の並列計算が得意な装置。AIの学習・推論を支える。"}, {"t": "勾配降下法", "e": "Gradient Descent", "c": "データ・技術", "d": "誤差が小さくなる方向へ、少しずつパラメータを調整する学習の基本手法。"}, {"t": "損失関数（ロス）", "e": "Loss Function", "c": "データ・技術", "d": "AIの予測が、正解からどれだけずれているかを測る指標。"}, {"t": "バックプロパゲーション", "e": "Backpropagation", "c": "データ・技術", "d": "誤差をさかのぼって、各パラメータの調整量を計算する仕組み。"}, {"t": "エポック", "e": "Epoch", "c": "データ・技術", "d": "学習データ全体を、1回学習し終える単位。"}, {"t": "学習率", "e": "Learning Rate", "c": "データ・技術", "d": "1回の学習で、パラメータをどれくらい動かすかの幅。"}, {"t": "レイテンシ", "e": "Latency", "c": "データ・技術", "d": "指示してから応答が返るまでの、待ち時間。"}, {"t": "バッチ処理", "e": "Batch", "c": "データ・技術", "d": "複数のデータをまとめて、一度に処理する方法。"}, {"t": "ベンチマーク", "e": "Benchmark", "c": "評価・安全", "d": "共通の基準・テストでモデルの性能を測り、比較すること。"}, {"t": "アライメント", "e": "Alignment", "c": "評価・安全", "d": "AIの振る舞いを、人間の意図や価値観に沿わせること。"}, {"t": "RLHF", "e": "RL from Human Feedback", "c": "評価・安全", "d": "人間の評価をもとに、AIの応答をより好ましく調整する学習法。"}, {"t": "バイアス（偏り）", "e": "Bias", "c": "評価・安全", "d": "学習データの偏りで、出力が特定の方向に傾いてしまうこと。"}, {"t": "知識のカットオフ", "e": "Knowledge Cutoff", "c": "評価・安全", "d": "モデルが学習した情報の締め切り時点。それ以降は基本的に知らない。"}, {"t": "ジェイルブレイク", "e": "Jailbreak", "c": "評価・安全", "d": "制限を回避させ、本来は出さない出力を引き出す行為。"}, {"t": "レッドチーミング", "e": "Red Teaming", "c": "評価・安全", "d": "わざと攻撃・悪用を試し、AIの弱点を洗い出す検証。"}, {"t": "ディープフェイク", "e": "Deepfake", "c": "評価・安全", "d": "AIで作った、本物そっくりの偽の画像・音声・動画。"}, {"t": "説明可能性（XAI）", "e": "Explainable AI", "c": "評価・安全", "d": "AIがなぜその判断をしたかを、人間が理解できるようにする取り組み。"}, {"t": "AGI（汎用人工知能）", "e": "Artificial General Intelligence", "c": "評価・安全", "d": "人間並みに幅広いタスクをこなせる、まだ実現していないAIの目標。"}, {"t": "自然言語処理（NLP）", "e": "Natural Language Processing", "c": "応用・周辺", "d": "人間の言葉を、コンピュータに扱わせる技術分野。"}, {"t": "チャットボット", "e": "Chatbot", "c": "応用・周辺", "d": "人と会話形式でやり取りするプログラム。"}, {"t": "コパイロット", "e": "Copilot", "c": "応用・周辺", "d": "作業に寄り添い、提案や補助をしてくれるAIアシスタントの呼び名。"}, {"t": "MCP", "e": "Model Context Protocol", "c": "応用・周辺", "d": "AIを外部のツールやデータに、安全につなぐための共通規格。"}, {"t": "ファンクションコーリング", "e": "Function Calling", "c": "応用・周辺", "d": "AIが必要に応じて、外部の機能（関数）を呼び出して使う仕組み。"}, {"t": "ノーコード／ローコード", "e": "No-code / Low-code", "c": "応用・周辺", "d": "プログラミングをほぼ書かずに、アプリやツールを作れる手法。"}, {"t": "コンテキストエンジニアリング", "e": "Context Engineering", "c": "応用・周辺", "d": "AIに渡す情報や資料を、目的に合わせて整え・組み立てる工夫。"}, {"t": "プログラミング", "e": "Programming", "c": "プログラミング基礎", "d": "コンピュータに命令を書いて、思いどおりに動かす作業。"}, {"t": "プログラミング言語", "e": "Programming Language", "c": "プログラミング基礎", "d": "コンピュータへの命令を書くための言語。Python、JavaScriptなど。"}, {"t": "ソースコード", "e": "Source Code", "c": "プログラミング基礎", "d": "人間が書いた、プログラムの文章そのもの。"}, {"t": "コンパイル", "e": "Compile", "c": "プログラミング基礎", "d": "ソースコードを、コンピュータが実行できる形式にまとめて変換すること。"}, {"t": "インタプリタ", "e": "Interpreter", "c": "プログラミング基礎", "d": "ソースコードを1行ずつ解釈しながら実行する仕組み。"}, {"t": "実行（ラン）", "e": "Run / Execute", "c": "プログラミング基礎", "d": "書いたプログラムを実際に動かすこと。"}, {"t": "変数", "e": "Variable", "c": "プログラミング基礎", "d": "値を入れておく、名前付きの箱。"}, {"t": "定数", "e": "Constant", "c": "プログラミング基礎", "d": "一度決めたら変わらない値。"}, {"t": "データ型", "e": "Data Type", "c": "プログラミング基礎", "d": "値の種類。数値・文字列・真偽値など。"}, {"t": "文字列", "e": "String", "c": "プログラミング基礎", "d": "文字の並びとして扱うデータ。\"hello\" など。"}, {"t": "整数／浮動小数点数", "e": "Integer / Float", "c": "プログラミング基礎", "d": "小数のない数と、小数を含む数。"}, {"t": "真偽値（ブール）", "e": "Boolean", "c": "プログラミング基礎", "d": "真（true）か偽（false）の2値だけをとる型。"}, {"t": "配列（リスト）", "e": "Array / List", "c": "プログラミング基礎", "d": "複数の値を順番に並べて入れる入れ物。"}, {"t": "連想配列（オブジェクト）", "e": "Object / Dict", "c": "プログラミング基礎", "d": "キーと値のペアでデータを持つ入れ物。"}, {"t": "関数", "e": "Function", "c": "プログラミング基礎", "d": "処理をひとまとめにして名前を付け、何度でも呼び出せるようにしたもの。"}, {"t": "引数（ひきすう）", "e": "Argument", "c": "プログラミング基礎", "d": "関数に渡す入力値。"}, {"t": "戻り値（返り値）", "e": "Return Value", "c": "プログラミング基礎", "d": "関数が処理結果として返す値。"}, {"t": "条件分岐（if文）", "e": "Conditional", "c": "プログラミング基礎", "d": "条件によって処理を切り替える仕組み。"}, {"t": "ループ（繰り返し）", "e": "Loop", "c": "プログラミング基礎", "d": "同じ処理を繰り返し実行する仕組み。for / while。"}, {"t": "演算子", "e": "Operator", "c": "プログラミング基礎", "d": "計算や比較を行う記号。+ - * / == など。"}, {"t": "コメント", "e": "Comment", "c": "プログラミング基礎", "d": "コードに書く、実行されない説明メモ。"}, {"t": "インデント", "e": "Indent", "c": "プログラミング基礎", "d": "行頭の字下げ。構造を見やすくする（Pythonでは意味も持つ）。"}, {"t": "スコープ", "e": "Scope", "c": "プログラミング基礎", "d": "変数が有効に使える範囲。"}, {"t": "再帰", "e": "Recursion", "c": "プログラミング基礎", "d": "関数が自分自身を呼び出す書き方。"}, {"t": "例外（エラー）", "e": "Exception", "c": "プログラミング基礎", "d": "実行中に起きる、想定外の問題。"}, {"t": "例外処理（try-catch）", "e": "Error Handling", "c": "プログラミング基礎", "d": "エラーが起きても止まらないように受け止める仕組み。"}, {"t": "デバッグ", "e": "Debug", "c": "プログラミング基礎", "d": "バグ（不具合）を見つけて直す作業。"}, {"t": "バグ", "e": "Bug", "c": "プログラミング基礎", "d": "プログラムの不具合・誤り。"}, {"t": "オブジェクト指向（OOP）", "e": "Object-Oriented", "c": "プログラミング基礎", "d": "データと処理をひとまとめ（オブジェクト）にして設計する考え方。"}, {"t": "クラス", "e": "Class", "c": "プログラミング基礎", "d": "オブジェクトの設計図。"}, {"t": "インスタンス", "e": "Instance", "c": "プログラミング基礎", "d": "クラスから作られた実体。"}, {"t": "継承", "e": "Inheritance", "c": "プログラミング基礎", "d": "既存クラスの機能を引き継いで、新しいクラスを作ること。"}, {"t": "メソッド", "e": "Method", "c": "プログラミング基礎", "d": "クラス（オブジェクト）が持つ関数。"}, {"t": "プロパティ", "e": "Property", "c": "プログラミング基礎", "d": "オブジェクトが持つデータ・属性。"}, {"t": "ライブラリ", "e": "Library", "c": "プログラミング基礎", "d": "よく使う機能をまとめた、再利用できる部品集。"}, {"t": "フレームワーク", "e": "Framework", "c": "プログラミング基礎", "d": "アプリ開発の土台になる、決まった構造を持つ枠組み。"}, {"t": "パッケージ", "e": "Package", "c": "プログラミング基礎", "d": "配布・管理しやすくまとめた、コードの単位。"}, {"t": "モジュール", "e": "Module", "c": "プログラミング基礎", "d": "機能ごとに分割した、コードのまとまり。"}, {"t": "擬似コード", "e": "Pseudocode", "c": "プログラミング基礎", "d": "実際の言語ではなく、処理の流れを言葉で書いたもの。"}, {"t": "計算量（オーダー）", "e": "Big-O", "c": "プログラミング基礎", "d": "処理にかかる時間やメモリの増え方の目安。O(n) など。"}, {"t": "ハードコーディング", "e": "Hardcoding", "c": "プログラミング基礎", "d": "値を直接コードに埋め込むこと。後で変えにくくなる。"}, {"t": "リファクタリング", "e": "Refactoring", "c": "プログラミング基礎", "d": "動作を変えずに、コードを整理して読みやすくすること。"}, {"t": "データ構造", "e": "Data Structure", "c": "プログラミング基礎", "d": "データの持ち方・並べ方の型。配列・木・ハッシュなど。"}, {"t": "ポインタ／参照", "e": "Pointer / Reference", "c": "プログラミング基礎", "d": "値そのものではなく、値の置き場所を指し示す仕組み。"}, {"t": "HTML", "e": "HyperText Markup Language", "c": "Web・フロント", "d": "Webページの構造を作るためのマークアップ言語。"}, {"t": "CSS", "e": "Cascading Style Sheets", "c": "Web・フロント", "d": "Webページの見た目（色・配置・装飾）を指定する言語。"}, {"t": "JavaScript", "e": "JavaScript", "c": "Web・フロント", "d": "Webページに動きや処理を加えるプログラミング言語。"}, {"t": "DOM", "e": "Document Object Model", "c": "Web・フロント", "d": "HTMLを、プログラムから操作できる木構造として表したもの。"}, {"t": "フロントエンド", "e": "Frontend", "c": "Web・フロント", "d": "ユーザーが直接見て触れる、画面側の部分。"}, {"t": "レスポンシブデザイン", "e": "Responsive Design", "c": "Web・フロント", "d": "画面サイズに合わせて、表示が自動で整うデザイン。"}, {"t": "ブラウザ", "e": "Browser", "c": "Web・フロント", "d": "Webページを表示するソフト。Chrome、Safariなど。"}, {"t": "レンダリング", "e": "Rendering", "c": "Web・フロント", "d": "データを元に、画面へ描画する処理。"}, {"t": "React", "e": "React", "c": "Web・フロント", "d": "UIを部品（コンポーネント）単位で作る、JavaScriptライブラリ。"}, {"t": "Vue / Angular", "e": "Vue / Angular", "c": "Web・フロント", "d": "Reactと並ぶ、フロント開発の主要フレームワーク。"}, {"t": "コンポーネント", "e": "Component", "c": "Web・フロント", "d": "UIを、再利用できる部品に分けた単位。"}, {"t": "状態（ステート）", "e": "State", "c": "Web・フロント", "d": "コンポーネントが持つ、変化するデータ。"}, {"t": "props", "e": "Props", "c": "Web・フロント", "d": "親から子コンポーネントへ渡すデータ。"}, {"t": "仮想DOM", "e": "Virtual DOM", "c": "Web・フロント", "d": "差分だけを効率よく画面に反映するための仕組み。"}, {"t": "SPA", "e": "Single Page Application", "c": "Web・フロント", "d": "ページ遷移せず、画面を書き換えて動くWebアプリ。"}, {"t": "SSR", "e": "Server-Side Rendering", "c": "Web・フロント", "d": "サーバー側でHTMLを生成して返す方式。"}, {"t": "Tailwind CSS", "e": "Tailwind CSS", "c": "Web・フロント", "d": "クラスを組み合わせて見た目を作る、CSSフレームワーク。"}, {"t": "Sass / SCSS", "e": "Sass", "c": "Web・フロント", "d": "CSSを書きやすく拡張した記法。"}, {"t": "Flexbox / Grid", "e": "CSS Layout", "c": "Web・フロント", "d": "要素を整列・配置するための、CSSのレイアウト機能。"}, {"t": "ビューポート", "e": "Viewport", "c": "Web・フロント", "d": "画面に実際に表示される領域。"}, {"t": "ファビコン", "e": "Favicon", "c": "Web・フロント", "d": "ブラウザのタブに出る、小さなアイコン。"}, {"t": "OGP", "e": "Open Graph Protocol", "c": "Web・フロント", "d": "SNSで共有したときのプレビュー表示を指定する仕組み。"}, {"t": "アクセシビリティ", "e": "a11y", "c": "Web・フロント", "d": "誰でも使えるようにするための配慮・設計。"}, {"t": "SEO", "e": "Search Engine Optimization", "c": "Web・フロント", "d": "検索結果で上位に出やすくするための最適化。"}, {"t": "ビルドツール", "e": "Webpack / Vite", "c": "Web・フロント", "d": "コードをまとめて、配信用に変換するツール。"}, {"t": "トランスパイル", "e": "Transpile", "c": "Web・フロント", "d": "新しい記法を、古い環境でも動く形に変換すること。"}, {"t": "npm / yarn", "e": "Package Manager", "c": "Web・フロント", "d": "JavaScriptのライブラリを管理するツール。"}, {"t": "Node.js", "e": "Node.js", "c": "Web・フロント", "d": "ブラウザの外でJavaScriptを動かす実行環境。"}, {"t": "TypeScript", "e": "TypeScript", "c": "Web・フロント", "d": "型を付けられるようにした、JavaScriptの拡張。"}, {"t": "CDN", "e": "Content Delivery Network", "c": "Web・フロント", "d": "コンテンツを世界中のサーバーから高速配信する仕組み。"}, {"t": "Cookie", "e": "Cookie", "c": "Web・フロント", "d": "ブラウザに保存される小さなデータ。ログイン状態などに使う。"}, {"t": "セッション", "e": "Session", "c": "Web・フロント", "d": "ユーザーの接続状態を、サーバー側で保持する仕組み。"}, {"t": "PWA", "e": "Progressive Web App", "c": "Web・フロント", "d": "Webサイトを、アプリのように使えるようにする技術。"}, {"t": "非同期処理（async/await）", "e": "Asynchronous", "c": "Web・フロント", "d": "待ち時間の間も、他の処理を進められる書き方。"}, {"t": "Ajax", "e": "Ajax", "c": "Web・フロント", "d": "ページを再読み込みせず、裏で通信してデータを更新する手法。"}, {"t": "イベント", "e": "Event", "c": "Web・フロント", "d": "クリックや入力など、処理が動くきっかけ。"}, {"t": "バックエンド", "e": "Backend", "c": "バックエンド・インフラ", "d": "ユーザーから見えない、サーバー側の処理。"}, {"t": "サーバー", "e": "Server", "c": "バックエンド・インフラ", "d": "要求に応じて処理やデータを返す、コンピュータ。"}, {"t": "クライアント", "e": "Client", "c": "バックエンド・インフラ", "d": "サーバーに要求を出す側。ブラウザやアプリ。"}, {"t": "REST API", "e": "REST API", "c": "バックエンド・インフラ", "d": "HTTPを使い、決まった作法でデータをやり取りするAPIの設計様式。"}, {"t": "エンドポイント", "e": "Endpoint", "c": "バックエンド・インフラ", "d": "APIにアクセスするためのURL（窓口）。"}, {"t": "HTTP / HTTPS", "e": "HTTP / HTTPS", "c": "バックエンド・インフラ", "d": "Web通信の決まりごと。HTTPSは暗号化された安全版。"}, {"t": "リクエスト／レスポンス", "e": "Request / Response", "c": "バックエンド・インフラ", "d": "要求と、それに対する応答。"}, {"t": "GET / POST", "e": "HTTP Methods", "c": "バックエンド・インフラ", "d": "データを取得する／送信する、代表的なHTTPメソッド。"}, {"t": "ステータスコード", "e": "Status Code", "c": "バックエンド・インフラ", "d": "通信結果を表す番号。200は成功、404は不在、500は障害。"}, {"t": "JSON", "e": "JSON", "c": "バックエンド・インフラ", "d": "データを「キー:値」で表す、軽量なやり取り用の形式。"}, {"t": "サーバーレス", "e": "Serverless", "c": "バックエンド・インフラ", "d": "サーバー管理を意識せず、関数だけを動かせる仕組み。"}, {"t": "クラウド", "e": "Cloud", "c": "バックエンド・インフラ", "d": "ネット越しに使う、他社のサーバー資源。"}, {"t": "AWS / GCP / Azure", "e": "Cloud Providers", "c": "バックエンド・インフラ", "d": "代表的なクラウドサービス。"}, {"t": "ホスティング", "e": "Hosting", "c": "バックエンド・インフラ", "d": "Webサイトやアプリを、ネット上に置いて公開すること。"}, {"t": "デプロイ", "e": "Deploy", "c": "バックエンド・インフラ", "d": "作ったアプリを、本番環境に配置して動かすこと。"}, {"t": "本番環境／開発環境", "e": "Production / Dev", "c": "バックエンド・インフラ", "d": "実際に公開する場と、作業用の場。"}, {"t": "環境変数", "e": "Environment Variable", "c": "バックエンド・インフラ", "d": "コードの外に置く設定値。APIキーなどに使う。"}, {"t": "ロードバランサー", "e": "Load Balancer", "c": "バックエンド・インフラ", "d": "アクセスを複数サーバーに振り分け、負荷を分散する仕組み。"}, {"t": "スケーリング", "e": "Scaling", "c": "バックエンド・インフラ", "d": "負荷に応じて、処理能力を増やしたり減らしたりすること。"}, {"t": "キャッシュ", "e": "Cache", "c": "バックエンド・インフラ", "d": "よく使うデータを一時保存し、次回を速くする仕組み。"}, {"t": "CI/CD", "e": "CI/CD", "c": "バックエンド・インフラ", "d": "テストや公開を自動化する、開発の流れ。"}, {"t": "コンテナ", "e": "Container", "c": "バックエンド・インフラ", "d": "アプリと必要な環境をまとめて、持ち運べるようにした箱。"}, {"t": "Docker", "e": "Docker", "c": "バックエンド・インフラ", "d": "コンテナを作って動かす、代表的なツール。"}, {"t": "Kubernetes", "e": "Kubernetes", "c": "バックエンド・インフラ", "d": "大量のコンテナを、自動で管理する仕組み。"}, {"t": "仮想マシン（VM）", "e": "Virtual Machine", "c": "バックエンド・インフラ", "d": "1台のPC上に作る、もう1つの仮想のコンピュータ。"}, {"t": "Linux", "e": "Linux", "c": "バックエンド・インフラ", "d": "サーバーで広く使われる、オープンソースのOS。"}, {"t": "コマンドライン（CLI）", "e": "Command Line", "c": "バックエンド・インフラ", "d": "文字で命令を打って操作する、画面・方式。"}, {"t": "ターミナル", "e": "Terminal", "c": "バックエンド・インフラ", "d": "コマンドを打つための画面・アプリ。"}, {"t": "ポート", "e": "Port", "c": "バックエンド・インフラ", "d": "通信の出入口を区別するための番号。"}, {"t": "ドメイン／DNS", "e": "Domain / DNS", "c": "バックエンド・インフラ", "d": "サイトの名前（住所）と、それをIPに変換する仕組み。"}, {"t": "IPアドレス", "e": "IP Address", "c": "バックエンド・インフラ", "d": "ネット上の機器を識別する番号。"}, {"t": "ミドルウェア", "e": "Middleware", "c": "バックエンド・インフラ", "d": "OSとアプリの間で、共通の処理を担うソフト。"}, {"t": "ログ", "e": "Log", "c": "バックエンド・インフラ", "d": "動作の記録。障害調査などに使う。"}, {"t": "監視（モニタリング）", "e": "Monitoring", "c": "バックエンド・インフラ", "d": "稼働状態を見張り、異常を検知すること。"}, {"t": "スループット", "e": "Throughput", "c": "バックエンド・インフラ", "d": "単位時間あたりに処理できる量。"}, {"t": "ジョブキュー", "e": "Job Queue", "c": "バックエンド・インフラ", "d": "あとで順番に処理する仕事を、並べておく仕組み。"}, {"t": "Webhook", "e": "Webhook", "c": "バックエンド・インフラ", "d": "イベント発生時に、相手へ自動でデータを送る通知の仕組み。"}, {"t": "CORS", "e": "CORS", "c": "バックエンド・インフラ", "d": "別ドメイン間の通信を許可・制限する、ブラウザの仕組み。"}, {"t": "データベース（DB）", "e": "Database", "c": "データベース", "d": "データを整理して保存・検索できるようにした仕組み。"}, {"t": "SQL", "e": "SQL", "c": "データベース", "d": "データベースを操作するための言語。"}, {"t": "リレーショナルDB", "e": "RDB", "c": "データベース", "d": "表（テーブル）の形でデータを管理するデータベース。"}, {"t": "NoSQL", "e": "NoSQL", "c": "データベース", "d": "表以外の柔軟な形でデータを扱う、データベースの総称。"}, {"t": "テーブル", "e": "Table", "c": "データベース", "d": "行と列でデータを並べた、表。"}, {"t": "レコード（行）", "e": "Record / Row", "c": "データベース", "d": "1件分のデータ。"}, {"t": "カラム（列）", "e": "Column", "c": "データベース", "d": "データの項目。"}, {"t": "主キー", "e": "Primary Key", "c": "データベース", "d": "各行を一意に識別するための項目。"}, {"t": "外部キー", "e": "Foreign Key", "c": "データベース", "d": "別テーブルと関連づけるための項目。"}, {"t": "インデックス", "e": "Index", "c": "データベース", "d": "検索を速くするための、索引。"}, {"t": "クエリ", "e": "Query", "c": "データベース", "d": "データベースへの問い合わせ。"}, {"t": "CRUD", "e": "CRUD", "c": "データベース", "d": "作成・読取・更新・削除という、基本の4操作。"}, {"t": "トランザクション", "e": "Transaction", "c": "データベース", "d": "一連の処理をまとめて、全部成功か全部取消にする単位。"}, {"t": "正規化", "e": "Normalization", "c": "データベース", "d": "データの重複をなくし、整理する設計。"}, {"t": "JOIN", "e": "Join", "c": "データベース", "d": "複数のテーブルを結合して取り出すこと。"}, {"t": "マイグレーション", "e": "Migration", "c": "データベース", "d": "DBの構造変更を、管理して適用すること。"}, {"t": "ORM", "e": "Object-Relational Mapping", "c": "データベース", "d": "プログラムのオブジェクトとDBを、橋渡しする仕組み。"}, {"t": "バックアップ", "e": "Backup", "c": "データベース", "d": "万一に備えて、データの控えを取ること。"}, {"t": "スキーマ", "e": "Schema", "c": "データベース", "d": "データベースの構造・設計図。"}, {"t": "集計（GROUP BY）", "e": "Aggregation", "c": "データベース", "d": "データをグループごとにまとめて計算すること。"}, {"t": "レプリケーション", "e": "Replication", "c": "データベース", "d": "データを複数の場所に複製し、安全性や速度を高める仕組み。"}, {"t": "シャーディング", "e": "Sharding", "c": "データベース", "d": "データを分割し、複数のサーバーに分散させること。"}, {"t": "データウェアハウス", "e": "Data Warehouse", "c": "データベース", "d": "分析用に、大量のデータをためておく基盤。"}, {"t": "ETL", "e": "ETL", "c": "データベース", "d": "データを抽出・変換・格納する、処理の流れ。"}, {"t": "キャッシュDB", "e": "Redis", "c": "データベース", "d": "データを高速に読み書きするための、メモリ上のDB。"}, {"t": "Git", "e": "Git", "c": "開発ツール・Git", "d": "ソースコードの変更履歴を管理するツール。"}, {"t": "GitHub", "e": "GitHub", "c": "開発ツール・Git", "d": "Gitのコードを、ネット上で共有・管理できるサービス。"}, {"t": "リポジトリ", "e": "Repository", "c": "開発ツール・Git", "d": "コードと変更履歴を保管する、入れ物。"}, {"t": "コミット", "e": "Commit", "c": "開発ツール・Git", "d": "変更を、ひとまとまりとして記録すること。"}, {"t": "プッシュ／プル", "e": "Push / Pull", "c": "開発ツール・Git", "d": "変更をリモートへ送る／取り込むこと。"}, {"t": "ブランチ", "e": "Branch", "c": "開発ツール・Git", "d": "作業を枝分かれさせ、並行して開発するための分岐。"}, {"t": "マージ", "e": "Merge", "c": "開発ツール・Git", "d": "分岐した変更を、1つに統合すること。"}, {"t": "プルリクエスト（PR）", "e": "Pull Request", "c": "開発ツール・Git", "d": "変更を取り込んでもらうための、依頼・レビュー単位。"}, {"t": "コンフリクト", "e": "Conflict", "c": "開発ツール・Git", "d": "同じ箇所の変更どうしがぶつかること。"}, {"t": "クローン", "e": "Clone", "c": "開発ツール・Git", "d": "リモートのリポジトリを、手元に複製すること。"}, {"t": "フォーク", "e": "Fork", "c": "開発ツール・Git", "d": "他人のリポジトリを、自分用に複製すること。"}, {"t": ".gitignore", "e": ".gitignore", "c": "開発ツール・Git", "d": "管理対象から外すファイルを指定する、設定ファイル。"}, {"t": "IDE", "e": "Integrated Dev Environment", "c": "開発ツール・Git", "d": "編集・実行・デバッグをまとめて行う、統合開発環境。"}, {"t": "VS Code", "e": "Visual Studio Code", "c": "開発ツール・Git", "d": "広く使われている、無料のコードエディタ。"}, {"t": "拡張機能（プラグイン）", "e": "Extension / Plugin", "c": "開発ツール・Git", "d": "ツールに機能を追加するための、部品。"}, {"t": "リンター", "e": "Linter", "c": "開発ツール・Git", "d": "コードの書き方の問題を、自動でチェックするツール。"}, {"t": "フォーマッター", "e": "Formatter", "c": "開発ツール・Git", "d": "コードの体裁を、自動で整えるツール。"}, {"t": "ビルド", "e": "Build", "c": "開発ツール・Git", "d": "ソースを、実行・配布できる形にまとめる処理。"}, {"t": "仮想環境", "e": "Virtual Environment", "c": "開発ツール・Git", "d": "プロジェクトごとに、依存関係を分けておく仕組み。"}, {"t": "ユニットテスト", "e": "Unit Test", "c": "開発ツール・Git", "d": "部品ごとに正しく動くか確かめる、小さなテスト。"}, {"t": "テスト自動化", "e": "Test Automation", "c": "開発ツール・Git", "d": "テストを、プログラムで自動実行すること。"}, {"t": "バージョン管理", "e": "Version Control", "c": "開発ツール・Git", "d": "ファイルの変更履歴を、記録・管理すること。"}, {"t": "セマンティックバージョニング", "e": "SemVer", "c": "開発ツール・Git", "d": "v1.2.3 のように、意味を持たせた版番号の付け方。"}, {"t": "Issue", "e": "Issue", "c": "開発ツール・Git", "d": "課題やバグを、記録・管理する単位。"}, {"t": "README", "e": "README", "c": "開発ツール・Git", "d": "リポジトリの概要や使い方を書く、入口の文書。"}, {"t": "オープンソース（OSS）", "e": "Open Source Software", "c": "開発ツール・Git", "d": "ソースを公開し、誰でも使える形で配布されるソフト。"}, {"t": "スニペット", "e": "Snippet", "c": "開発ツール・Git", "d": "短い、再利用できるコードの断片。"}, {"t": "Claude Code", "e": "Claude Code", "c": "開発ツール・Git", "d": "ターミナルやアプリから、Claudeに開発作業を任せられるツール。"}, {"t": "要件定義", "e": "Requirements", "c": "設計・手法", "d": "何を作るか・何が必要かを決める工程。"}, {"t": "仕様", "e": "Specification", "c": "設計・手法", "d": "機能や動作の、決まりごと。"}, {"t": "アジャイル", "e": "Agile", "c": "設計・手法", "d": "短い周期で作って改善を繰り返す、開発手法。"}, {"t": "スクラム", "e": "Scrum", "c": "設計・手法", "d": "アジャイルの代表的な進め方。役割と短い反復で回す。"}, {"t": "ウォーターフォール", "e": "Waterfall", "c": "設計・手法", "d": "工程を順番に進める、計画重視の開発手法。"}, {"t": "スプリント", "e": "Sprint", "c": "設計・手法", "d": "数週間など、決まった期間の開発サイクル。"}, {"t": "MVP（最小実用製品）", "e": "Minimum Viable Product", "c": "設計・手法", "d": "価値を検証できる、最小限の機能だけ作った版。"}, {"t": "プロトタイプ", "e": "Prototype", "c": "設計・手法", "d": "試作・たたき台。"}, {"t": "UI", "e": "User Interface", "c": "設計・手法", "d": "ユーザーが操作する、画面・見た目。"}, {"t": "UX", "e": "User Experience", "c": "設計・手法", "d": "使ったときの、体験の質。"}, {"t": "ワイヤーフレーム", "e": "Wireframe", "c": "設計・手法", "d": "画面の骨組みを示す、設計図。"}, {"t": "デザインパターン", "e": "Design Pattern", "c": "設計・手法", "d": "よくある設計の、定石・型。"}, {"t": "疎結合／密結合", "e": "Loose / Tight Coupling", "c": "設計・手法", "d": "部品同士の依存が弱い状態と、強い状態。"}, {"t": "DRY原則", "e": "Don't Repeat Yourself", "c": "設計・手法", "d": "同じことを繰り返し書かない、という指針。"}, {"t": "MVC", "e": "Model-View-Controller", "c": "設計・手法", "d": "表示・データ・制御を分けて設計する、型。"}, {"t": "マイクロサービス", "e": "Microservices", "c": "設計・手法", "d": "機能ごとに小さく分けて作る、構成。"}, {"t": "モノリス", "e": "Monolith", "c": "設計・手法", "d": "全機能を1つにまとめた、構成。"}, {"t": "技術的負債", "e": "Technical Debt", "c": "設計・手法", "d": "あとで直す前提で残した、雑な実装のツケ。"}, {"t": "コードレビュー", "e": "Code Review", "c": "設計・手法", "d": "他者がコードを確認し、品質を上げること。"}, {"t": "テスト駆動開発（TDD）", "e": "Test-Driven Development", "c": "設計・手法", "d": "先にテストを書いてから、実装する進め方。"}, {"t": "ペアプログラミング", "e": "Pair Programming", "c": "設計・手法", "d": "2人で1つのコードを書く、開発方法。"}, {"t": "バックログ", "e": "Backlog", "c": "設計・手法", "d": "やるべきタスクをためた、一覧。"}, {"t": "ロードマップ", "e": "Roadmap", "c": "設計・手法", "d": "開発の予定・道筋。"}, {"t": "保守（メンテナンス）", "e": "Maintenance", "c": "設計・手法", "d": "公開後も、直し・改善し続けること。"}, {"t": "冪等性（べきとうせい）", "e": "Idempotency", "c": "設計・手法", "d": "何回実行しても、結果が同じになる性質。"}, {"t": "暗号化", "e": "Encryption", "c": "セキュリティ・通信", "d": "データを読めない形に変換して、守ること。"}, {"t": "復号", "e": "Decryption", "c": "セキュリティ・通信", "d": "暗号化したデータを、元に戻すこと。"}, {"t": "認証", "e": "Authentication", "c": "セキュリティ・通信", "d": "本人かどうかを確かめること。"}, {"t": "認可", "e": "Authorization", "c": "セキュリティ・通信", "d": "何をしてよいか、権限を与えること。"}, {"t": "パスワードハッシュ", "e": "Password Hashing", "c": "セキュリティ・通信", "d": "パスワードを、元に戻せない形にして保存する仕組み。"}, {"t": "認証トークン", "e": "Auth Token", "c": "セキュリティ・通信", "d": "ログイン状態などを証明する、文字列。"}, {"t": "OAuth", "e": "OAuth", "c": "セキュリティ・通信", "d": "他サービスのログインを使い、認証を任せる仕組み。"}, {"t": "JWT", "e": "JSON Web Token", "c": "セキュリティ・通信", "d": "情報を含んだ、認証用トークンの形式。"}, {"t": "SSL / TLS", "e": "SSL / TLS", "c": "セキュリティ・通信", "d": "通信を暗号化する仕組み。HTTPSの中身。"}, {"t": "ファイアウォール", "e": "Firewall", "c": "セキュリティ・通信", "d": "不正な通信を遮断する、防壁。"}, {"t": "SQLインジェクション", "e": "SQL Injection", "c": "セキュリティ・通信", "d": "不正なSQLを送り込み、DBを操作する攻撃。"}, {"t": "XSS", "e": "Cross-Site Scripting", "c": "セキュリティ・通信", "d": "悪意あるスクリプトを埋め込む、攻撃。"}, {"t": "CSRF", "e": "CSRF", "c": "セキュリティ・通信", "d": "利用者になりすまし、意図しない操作をさせる攻撃。"}, {"t": "脆弱性", "e": "Vulnerability", "c": "セキュリティ・通信", "d": "攻撃に使われ得る、弱点。"}, {"t": "二要素認証（2FA）", "e": "Two-Factor Auth", "c": "セキュリティ・通信", "d": "パスワードに加え、もう1段階で確認する仕組み。"}, {"t": "APIキー", "e": "API Key", "c": "セキュリティ・通信", "d": "APIを使うための鍵。識別・認証に使う。"}, {"t": "レート制限", "e": "Rate Limit", "c": "セキュリティ・通信", "d": "一定時間あたりの利用回数に、上限を設けること。"}, {"t": "プロキシ", "e": "Proxy", "c": "セキュリティ・通信", "d": "通信を中継する、サーバー。"}, {"t": "VPN", "e": "VPN", "c": "セキュリティ・通信", "d": "通信を暗号化してつなぐ、安全な仮想回線。"}, {"t": "DDoS攻撃", "e": "DDoS", "c": "セキュリティ・通信", "d": "大量アクセスで、サービスを停止させる攻撃。"}, {"t": "サニタイズ", "e": "Sanitize", "c": "セキュリティ・通信", "d": "入力値から、危険な要素を取り除くこと。"}, {"t": "ゼロトラスト", "e": "Zero Trust", "c": "セキュリティ・通信", "d": "何も無条件には信用せず、その都度検証する考え方。"}];
+
+const TOTAL = DATA.length;
+const CATS = ["すべて", ...Array.from(new Set(DATA.map(x=>x.c)))];
+
+const qEl=document.getElementById('q'), clearEl=document.getElementById('clear'),
+      chipsEl=document.getElementById('chips'), listEl=document.getElementById('list'),
+      countEl=document.getElementById('count'), footEl=document.getElementById('foot');
+let activeCat="すべて";
+
+document.getElementById('whoName').textContent='by '+CONFIG.name;
+document.getElementById('whoHandle').textContent='@'+CONFIG.handle;
+document.getElementById('lineBtn').href=CONFIG.lineUrl;
+
+CATS.forEach(cat=>{
+  const b=document.createElement('button');
+  b.className='chip'+(cat==="すべて"?' active':'');
+  b.textContent=cat; b.dataset.cat=cat;
+  b.addEventListener('click',()=>{activeCat=cat;document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.cat===cat));render();});
+  chipsEl.appendChild(b);
+});
+
+function esc(s){return s.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+function highlight(text,q){const safe=esc(text);if(!q)return safe;const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');return safe.replace(re,'<mark>$1</mark>');}
+
+function render(){
+  const q=qEl.value.trim(), ql=q.toLowerCase();
+  clearEl.classList.toggle('show',q.length>0);
+  const rows=DATA.filter(x=>{
+    if(activeCat!=="すべて"&&x.c!==activeCat)return false;
+    if(!ql)return true;
+    return x.t.toLowerCase().includes(ql)||x.e.toLowerCase().includes(ql)||x.d.toLowerCase().includes(ql)||x.c.toLowerCase().includes(ql);
+  });
+  countEl.innerHTML='全'+TOTAL+'語中 <b>'+rows.length+'</b> 件';
+  if(rows.length===0){
+    listEl.innerHTML='<div class="empty"><div class="big">「<span class="q">'+esc(q)+'</span>」に一致する用語は見つかりませんでした。</div><div>別のキーワードやジャンルを試してみてください。</div></div>';
+    footEl.innerHTML=''; return;
+  }
+  listEl.innerHTML=rows.map(x=>'<article class="entry"><div class="entry-head"><span class="term">'+highlight(x.t,q)+'</span><span class="en">'+highlight(x.e,q)+'</span><span class="cat">'+esc(x.c)+'</span></div><p class="def">'+highlight(x.d,q)+'</p></article>').join('');
+  footEl.innerHTML='AI &amp; DEV GLOSSARY · '+TOTAL+' TERMS<br><span class="fh">@'+CONFIG.handle+'</span>';
+}
+
+qEl.addEventListener('input',render);
+qEl.addEventListener('keydown',e=>{if(e.key==='Escape'){qEl.value='';render();}});
+clearEl.addEventListener('click',()=>{qEl.value='';qEl.focus();render();});
+
+const toastEl=document.getElementById('toast');
+let toastT;
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>toastEl.classList.remove('show'),1800);}
+function copyLink(){
+  const url=location.href;
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>toast('リンクをコピーしました')).catch(()=>fallbackCopy(url));}
+  else fallbackCopy(url);
+}
+function fallbackCopy(text){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('リンクをコピーしました');}catch(e){toast('コピーできませんでした');}document.body.removeChild(ta);}
+document.getElementById('shareBtn').addEventListener('click',async()=>{
+  const data={title:'AI・開発用語 検索ツール',text:CONFIG.shareText,url:location.href};
+  if(navigator.share){try{await navigator.share(data);}catch(e){}}else{copyLink();}
+});
+document.getElementById('copyBtn').addEventListener('click',copyLink);
+
+render();
+</script>
+</body>
+</html>
